@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=.8">
+  <title>2c. Gathering and Collecting Data</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#c.-gathering-and-collecting-data">2c. Gathering and collecting data</a>
+<ul>
+<li><a href="#an-overview-where-can-we-find-data">An overview: where can we find data?</a></li>
+<li><a href="#existing-data-libraries">Existing data libraries</a></li>
+<li><a href="#data-that-is-not-readily-available">Data that is not readily available</a></li>
+<li><a href="#harvesting-data">Harvesting data</a></li>
+<li><a href="#example-using-google-maps-api">Example: Using Google Map’s API</a></li>
+<li><a href="#web-scraping-with-python">Web scraping with Python</a></li>
+<li><a href="#web-scraping-with-r">Web scraping with R</a></li>
+<li><a href="#collecting-your-own-data">Collecting your own data</a></li>
+<li><a href="#human-subjects-in-research">Human subjects in research</a></li>
+<li><a href="#what-is-a-human-subject">What is a human subject?</a></li>
+<li><a href="#the-belmont-principles">The Belmont Principles</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="c.-gathering-and-collecting-data">2c. Gathering and collecting data</h1>
+<p>Slides <a href="https://courses.edx.org/assets/courseware/v1/fd388540140a77a52c31ad8bb8db46d5/asset-v1:MITx+14.310x+2T2020+type@asset+block/14310x_Lecture4_New_ToUpload.pdf">here</a></p>
+<h2 id="an-overview-where-can-we-find-data">An overview: where can we find data?</h2>
+<ol>
+<li>Existing data libraries</li>
+<li>Collecting your own data</li>
+<li>Extract data from the internet which requires preprocessing (blend of 1, 2)</li>
+</ol>
+<h2 id="existing-data-libraries">Existing data libraries</h2>
+<p>Online collections</p>
+<ul>
+<li>Census/government data dumps</li>
+<li>Harvard/MIT datasets</li>
+<li>Amazon dataverse</li>
+<li>DHS (deomgraphic &amp; health surveys)</li>
+<li>LSMS (living standards measurement surveys); comprehensive code books &amp; interviews</li>
+<li>Rand, similar to LSMS
+<ul>
+<li>Surveys families in countries over many years</li>
+</ul>
+</li>
+</ul>
+<p>RCT data</p>
+<ul>
+<li>Stored in HQSS dataverse</li>
+<li>Often more rich than just answering targeted question</li>
+<li>Less used by researchers</li>
+</ul>
+<p>Standards</p>
+<ul>
+<li>ICPSR public data standards:
+<ul>
+<li>No identifiable information</li>
+<li>Requires ocumentatation</li>
+</ul>
+</li>
+<li>American Economic Association requires journals to publish data for research (not the most clean)</li>
+<li>Most data can be used as long as it’s cited</li>
+</ul>
+<p>Internet resources</p>
+<ul>
+<li>538, Yahoo news, Uber movement</li>
+<li>Wayback machine</li>
+</ul>
+<h2 id="data-that-is-not-readily-available">Data that is not readily available</h2>
+<ul>
+<li>Restricted by cost:
+<ul>
+<li>Libraries might have access</li>
+<li>Commercial data might be available for research</li>
+</ul>
+</li>
+<li>Restricted by confidentiality (NDA)</li>
+<li>Restricted locations in which to access data</li>
+<li>Manual harvesting/cleaning</li>
+</ul>
+<h2 id="harvesting-data">Harvesting data</h2>
+<ul>
+<li>Web scraping; scraping unfinished datasets from the internet
+<ul>
+<li>Pull data from/crawl websites, forms</li>
+<li>APIs (application program interface)
+<ul>
+<li>Could be free, trialed or require authorization</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Collecting your own data</li>
+</ul>
+<h2 id="example-using-google-maps-api">Example: Using Google Map’s API</h2>
+<h3 id="background">Background:</h3>
+<ul>
+<li>Usually used by those building smartphone apps/websites</li>
+<li>Designed for commercial applications with cost structure</li>
+<li>Two types of queries:
+<ol>
+<li>Departure time now (based on crowdsourced + historical data for a route)</li>
+<li>Departure time future (predict based on historical data)</li>
+</ol>
+<ul>
+<li>No direct access to historical data</li>
+</ul>
+</li>
+<li>Gives CSV result</li>
+</ul>
+<h3 id="example-delhi-odd-even-study">Example: Delhi Odd-Even study</h3>
+<p>Delhi is very polluted and experimented by restricting number plates’ ability to drive on different days (<em>odd-even</em>).</p>
+<ul>
+<li>
+<p>Unlike Mexico (all the time), this is implemented only during periods of peak pollution</p>
+</li>
+<li>
+<p>Use maps API to see how long it takes to drive 93 routes during a given time</p>
+<ul>
+<li>Sunday has less traffic</li>
+<li>Shows that policy did decrease travel time in locations with implemented policy
+<ul>
+<li>Could suggest success; most pollution comes from idling</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="web-scraping-with-python">Web scraping with Python</h2>
+<p>APIs are not always available.</p>
+<p>Example with scraping: comparing price of books after internet (Ellison &amp; Klein)</p>
+<ul>
+<li>For physical prices: visit bookstores</li>
+<li>For online prices: use WayBack machine + online bookstore (Abe Books) to inspect elements and extract data</li>
+</ul>
+<p>Use python to do this:</p>
+<ul>
+<li>BeautifulSoup library can help simplify scraped data</li>
+</ul>
+<h2 id="web-scraping-with-r">Web scraping with R</h2>
+<ul>
+<li><code>rvest</code> library (works well with <em>SelectorGadget</em> Chrome extension</li>
+</ul>
+<p>Demo:</p>
+<ol>
+<li>Click on a table with <code>SelectorGadget</code>; <code>SelectorGadget</code> will tell you the name of the element (in this case, <code>table</code>)</li>
+<li>Read HTML into text</li>
+<li><code>SelectorGadget</code> points to a node; we should select it</li>
+<li>Clean</li>
+</ol>
+<h2 id="collecting-your-own-data">Collecting your own data</h2>
+<ul>
+<li>Need to do an IRB application (Internal Review Board) beforehand to determine ethics; possibly create consent forms</li>
+<li>Use survey tools (websites, apps, Amazon MTurk)</li>
+</ul>
+<p>Steps:<br>
+* Obtain funding<br>
+* Prepare data management plan (sharing, privacy)<br>
+* Obtain Human Subject Approval (IRB)<br>
+* Design/pilot data collection instrument</p>
+<h2 id="human-subjects-in-research">Human subjects in research</h2>
+<p>Background on regulation protecting human subjects</p>
+<ul>
+<li>Nazi research</li>
+<li>Tuskegee Syphilis trials 1932-1972
+<ul>
+<li>No treatment on unknowing/lied to impoverished sharecroppers</li>
+<li>Many dead and infected</li>
+<li>Also, didn’t yield any scientific results</li>
+</ul>
+</li>
+</ul>
+<p>Belmont Report (Title 45 Part 46)</p>
+<ul>
+<li>Designed for biomedical research</li>
+</ul>
+<h2 id="what-is-a-human-subject">What is a human subject?</h2>
+<p>Definitions:</p>
+<ul>
+<li><strong>Research</strong>: A systematic investiagion to develop/contribute to generalizable knowledge
+<ul>
+<li>Excludes <em>ungeneralizable</em>* knowledge (companies experimenting without wanting to publish)</li>
+</ul>
+</li>
+<li><strong>Human subject</strong>: Living individual about whom an investigator can conduct research or obtain identifiable data
+<ul>
+<li>Require permission if you either collect your own data or use data with identifiers</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-belmont-principles">The Belmont Principles</h2>
+<ol>
+<li>Respect for persons
+<ul>
+<li>Informed consent
+<ul>
+<li>Exception: collecting consent would hurt the study, and there is no harm</li>
+<li>Psych study with deception requires debriefing after</li>
+</ul>
+</li>
+<li>Protecting privacy, maintaining confidentiality</li>
+<li>Safeguards for vulnerable/coercive subjects</li>
+</ul>
+</li>
+<li>Beneficence
+<ul>
+<li>Maximize benefits, reduce harm</li>
+<li>Can’t overcompensate people to perform dangerous tasks</li>
+</ul>
+</li>
+<li>Justice
+<ul>
+<li>Justify human subject population makeup</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+  </div>
+</body>
+
+</html>
