@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=.8">
+  <title>3a. Summarizing and Describing Data</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__left">
+    <div class="stackedit__toc">
+      
+<ul>
+<li><a href="#a.-summarizing-and-describing-data">3a. Summarizing and Describing Data</a>
+<ul>
+<li><a href="#the-histogram">The histogram</a></li>
+<li><a href="#plotting-histograms-in-r">Plotting histograms in R</a></li>
+<li><a href="#intro-to-kernel-density-estimation">Intro to kernel density estimation</a></li>
+<li><a href="#kernel-density-estimation-in-r">Kernel density estimation in R</a></li>
+<li><a href="#bandwidth-in-kernel-functions">Bandwidth in kernel functions</a></li>
+<li><a href="#comparing-distributions">Comparing distributions</a></li>
+<li><a href="#plotting-cumulative-distribution-functions">Plotting cumulative distribution functions</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+  <div class="stackedit__right">
+    <div class="stackedit__html">
+      <h1 id="a.-summarizing-and-describing-data">3a. Summarizing and Describing Data</h1>
+<p>Slides <a href="https://courses.edx.org/assets/courseware/v1/dde9bc845edac3aabf1700090f8817b4/asset-v1:MITx+14.310x+2T2020+type@asset+block/Feb22Lecture.pdf">here</a></p>
+<p>This lecture focuses on exploratory data analysis; <strong>data visualization</strong> can be used for exploratory analysis or to convey stories to others.</p>
+<h2 id="the-histogram">The histogram</h2>
+<ul>
+<li>Rough estimate of the probability distribution function of a continuous variable, obtained by binning and counting observations</li>
+<li>Can represent counts or densities (divided by overall population)</li>
+</ul>
+<h2 id="plotting-histograms-in-r">Plotting histograms in R</h2>
+<ul>
+<li>Conventions: have a <code>data/</code> and a <code>graph/</code> subdirectory</li>
+<li>A <code>tibble</code> is a TidyVerse table/dataframe</li>
+<li><code>plot_grid</code> by <code>cowplot</code> can plot multiple grids</li>
+</ul>
+<p>What’s the optimal bin shape?</p>
+<ul>
+<li>More observations = more noise/bumpiness</li>
+<li>Tradeoff between bias and variance; information relayed vs. noise tolerance</li>
+</ul>
+<p>Advantages of data cleaning in statistical software:</p>
+<ul>
+<li>Track record of changes</li>
+<li>No overwriting the underlying data</li>
+</ul>
+<h2 id="intro-to-kernel-density-estimation">Intro to kernel density estimation</h2>
+<ul>
+<li>A kernel density estimation (KDE) is a smoothed histogram, another PDF visualization</li>
+<li>Extension of histogram: at each point, we take a weighted average of the frequency of th eobservations</li>
+<li>Works for any distribution centered on a point; integrates to 1
+<ul>
+<li>Typicall use normal/Gaussian or Epanechnikov kernel function</li>
+</ul>
+</li>
+<li>Difference: histograms use <em>bin width</em> (graphed in groups of size <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathdefault">x</span></span></span></span></span>); KDEs use <em>band width</em></li>
+<li>We assume an i.i.d. sample; no assumptions about the shape of the distribution</li>
+<li>Kernels estimate <em>density</em>, not <em>counts</em></li>
+</ul>
+<h2 id="kernel-density-estimation-in-r">Kernel density estimation in R</h2>
+<ul>
+<li>Default <code>geom_histogram()</code> is a count histogram w/ frequency on the y-axis; to specify history, <code>aes()</code> must contain <code>density</code></li>
+</ul>
+<h2 id="bandwidth-in-kernel-functions">Bandwidth in kernel functions</h2>
+<ul>
+<li>There’s bias at the boundary of the estimation; you only have half of the data (very apparent in large bandwidth)</li>
+<li>The bigger the bandwidth, the smoother the kernel (tradeoff between overfitting/variance and oversmoothing/bias)</li>
+</ul>
+<h2 id="comparing-distributions">Comparing distributions</h2>
+<ul>
+<li>Binomial distribution $B(n, p) is approximately normal with mean <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">np</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">p</span></span></span></span></span> and variance <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>p</mi><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">np(1-p)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathdefault">p</span><span class="mclose">)</span></span></span></span></span> for large <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.43056em; vertical-align: 0em;"></span><span class="mord mathdefault">n</span></span></span></span></span> and for <span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>p</mi></mrow><annotation encoding="application/x-tex">p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.19444em;"></span><span class="mord mathdefault">p</span></span></span></span></span> not too close to 0 or 1</li>
+</ul>
+<h2 id="plotting-cumulative-distribution-functions">Plotting cumulative distribution functions</h2>
+<ul>
+<li>CDF is the integral of density</li>
+<li>Sometimes better for comparing two distributions (can immediately determine heights; easier than comparing areas)</li>
+<li><strong>First order stochastic dominance</strong>: for any x-value; one distribution has higher probability than another</li>
+</ul>
+
+    </div>
+  </div>
+</body>
+
+</html>
